@@ -12,7 +12,8 @@
     const App = () => {
       const [counter, modifier] = React.useState(0);
       function countUp() {
-        modifier(counter + 1);
+        // modifier(counter + 1);
+        modifier((current) => current + 1);
       }
       return (
         <div>
