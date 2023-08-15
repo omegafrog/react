@@ -1,26 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>index</title>
-  </head>
+<html>
   <body>
-    <span>Total count : 0</span>
-    <button id="btn">Hi</button>
+    <span> Total click : 0</span>
+    <button id="btn">hi</button>
   </body>
   <script>
+    const button = document.getElementById("btn");
     let counter = 0;
-    const button = document.getElementById("btn")
-    const span = document.querySelector("span")
-    
-    function handleClick(){
-        console.log('hi');
-        counter+=1;
-        span.innerText="Total count : "+counter;
+    function handleClick() {
+      console.log(counter);
+      counter += 1;
+      span.innerText = "Total click : " + counter;
     }
-    button.addEventListener("click",handleClick)
-
+    const span = document.querySelector("span");
+    button.addEventListener("click", handleClick);
   </script>
 </html>
