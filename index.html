@@ -24,14 +24,14 @@
         </button>
       );
     }
-
+    const MemorizedBtn = React.memo(Btn);
     const App = () => {
       const [changedText, setText] = React.useState("Save changes");
       const changeText = () => setText("Revert Changes");
       return (
         <div>
-          <Btn text={changedText} onClick={changeText} />
-          <Btn text="Continue" />
+          <MemorizedBtn text={changedText} onClick={changeText} />
+          <MemorizedBtn text="Continue" />
         </div>
       );
     };
