@@ -8,17 +8,48 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     const root = document.getElementById("root");
-
     const App = () => {
-      const [counter, modifier] = React.useState(0);
-      function countUp() {
-        // modifier(counter + 1);
-        modifier((current) => current + 1);
-      }
+      const [minutes, setMinutes] = React.useState();
+      const [hours, setHours] = React.useState();
+
+      const convertMinToHour = () => {
+        setHours(event.target.value / 60);
+      };
+      const convertHourToMin = () => {
+        setMinutes(event.target.value * 60);
+      };
+
       return (
         <div>
-          <h3>Total clicks: {counter}</h3>
-          <button onClick={countUp}>Click me</button>
+          <h1>Super converter</h1>
+          <label htmlFor="minutes">minutes</label>
+          <input
+            id="minutes"
+            placeholder="minute"
+            value={minutes}
+            onClick={(event) => {
+              console.log("clicked");
+              event.target.addEventListener("change", convertMinToHour);
+            }}
+            onBlur={(event) => {
+              console.log("unclicked");
+              event.target.removeEventListener("change", convertMinToHour);
+            }}
+          />
+          <label htmlFor="hours">hours</label>
+          <input
+            id="hours"
+            placeholder="hour"
+            value={hours}
+            onClick={(event) => {
+              console.log("clicked");
+              event.target.addEventListener("change", convertHourToMin);
+            }}
+            onBlur={(event) => {
+              console.log("unclicked");
+              event.target.removeEventListener("change", convertMinToHour);
+            }}
+          />
         </div>
       );
     };
