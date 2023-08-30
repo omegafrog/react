@@ -1,44 +1,43 @@
 import { useEffect, useState } from "react";
 
 function App() {
-  const [todo, setTodo] = useState("");
-  const [todos, setTodos] = useState([]);
-  const removeList = (event) => {
-    setTodos((prev) => {
-      prev.splice(event.target.key, 1);
-      console.log("prev", prev);
-      return prev;
-    });
+  const [loading, setLoading] = useState(true);
+  const [coins, setCoins] = useState([]);
+  const [dollars, setDollars] = useState(0);
+  const convertDollar = (event) => {
+    setDollars((prev) => event.target.value);
   };
-  const onChange = (event) => setTodo(event.target.value);
-  const onSubmit = (event) => {
-    event.preventDefault();
-    if (todo === "") return;
-    setTodos((prev) => [todo, ...prev]);
-    setTodo("");
-  };
-  console.log(todos);
+  useEffect(() => {
+    fetch("https://api.coinpaprika.com/v1/tickers")
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json);
+        setCoins(json);
+        setLoading(false);
+      });
+  }, []);
   return (
     <div>
-      <form onSubmit={onSubmit}>
+      <h1> The coins ({coins.length})</h1>
+      <div>
+        How much dollar you have?
         <input
-          type="text"
-          placeholder="Write your todo"
-          onChange={onChange}
-          value={todo}
+          value={dollars}
+          placeholder="dollars"
+          onChange={convertDollar}
         ></input>
-        <button>Add To Do</button>
-      </form>
-      <ul id="todoList">
-        {todos.map((item, index) => (
-          <li key={index}>
-            <div>
-              {item}
-              <button onClick={removeList}>❌</button>
-            </div>
-          </li>
+      </div>
+      <hr></hr>
+      {loading ? <strong>loading...</strong> : null}
+      <select>
+        {coins.map((item) => (
+          <option>
+            {item.name}({item.symbol}) : {item.quotes.USD.price.toFixed(2)}$ ...
+            you can buy {(dollars / item.quotes.USD.price).toFixed(3)}{" "}
+            {item.symbol}
+          </option>
         ))}
-      </ul>
+      </select>
     </div>
   );
 }
