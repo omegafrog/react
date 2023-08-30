@@ -7,7 +7,8 @@
   <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
-    function Btn({ text }) {
+    function Btn({ text, onClick }) {
+      console.log(text + " rendered");
       return (
         <button
           style={{
@@ -17,6 +18,7 @@
             border: 0,
             borderRadius: 10,
           }}
+          onClick={onClick}
         >
           {text}
         </button>
@@ -24,9 +26,11 @@
     }
 
     const App = () => {
+      const [changedText, setText] = React.useState("Save changes");
+      const changeText = () => setText("Revert Changes");
       return (
         <div>
-          <Btn text="Save changes" />
+          <Btn text={changedText} onClick={changeText} />
           <Btn text="Continue" />
         </div>
       );
