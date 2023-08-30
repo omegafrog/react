@@ -7,52 +7,31 @@
   <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
-    const root = document.getElementById("root");
+    function Btn({ text }) {
+      return (
+        <button
+          style={{
+            backgroundColor: "tomato",
+            color: "white",
+            padding: "10px 20px",
+            border: 0,
+            borderRadius: 10,
+          }}
+        >
+          {text}
+        </button>
+      );
+    }
+
     const App = () => {
-      const [minutes, setMinutes] = React.useState();
-      const [hours, setHours] = React.useState();
-
-      const convertMinToHour = () => {
-        setHours(event.target.value / 60);
-      };
-      const convertHourToMin = () => {
-        setMinutes(event.target.value * 60);
-      };
-
       return (
         <div>
-          <h1>Super converter</h1>
-          <label htmlFor="minutes">minutes</label>
-          <input
-            id="minutes"
-            placeholder="minute"
-            value={minutes}
-            onClick={(event) => {
-              console.log("clicked");
-              event.target.addEventListener("change", convertMinToHour);
-            }}
-            onBlur={(event) => {
-              console.log("unclicked");
-              event.target.removeEventListener("change", convertMinToHour);
-            }}
-          />
-          <label htmlFor="hours">hours</label>
-          <input
-            id="hours"
-            placeholder="hour"
-            value={hours}
-            onClick={(event) => {
-              console.log("clicked");
-              event.target.addEventListener("change", convertHourToMin);
-            }}
-            onBlur={(event) => {
-              console.log("unclicked");
-              event.target.removeEventListener("change", convertMinToHour);
-            }}
-          />
+          <Btn text="Save changes" />
+          <Btn text="Continue" />
         </div>
       );
     };
+    const root = document.getElementById("root");
     ReactDOM.render(<App />, root);
   </script>
 </html>
